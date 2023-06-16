@@ -4,7 +4,7 @@ import time
 start_time = time.perf_counter()
 
 
-file_name = "medium"
+file_name = "wrongInput"
 
 
 def set_input(fname):
@@ -104,12 +104,14 @@ def create_output(state):
 def Astar(fringe):
     while True:
         fringe.sort(reverse=True, key=lambda x: x[0])
+        if len(fringe) == 0:
+            print("The input is wrong!!")
+            break
         best_state = fringe.pop()
         f = best_state[0] - heuristic(best_state[1]) + 1
         best_state = best_state[1]
         if goal_test(best_state):
             create_output(best_state)
-            print(best_state)
             break
         next_empty = best_empty_pos(best_state)
         for i in range(1, 10):
